@@ -15,14 +15,14 @@ class CartTab extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Expanded(
+          const Expanded(
             child: Placeholder(),
           ),
           Container(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.vertical(
+              borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(30),
               ),
               boxShadow: [
@@ -45,7 +45,7 @@ class CartTab extends StatelessWidget {
                   utilServices.priceToCourence(50.5),
                   style: TextStyle(
                     fontSize: 23,
-                    color: CustomColors.customContrastColor,
+                    color: CustomColors.customSwatchColor,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -53,13 +53,13 @@ class CartTab extends StatelessWidget {
                   height: 50,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      foregroundColor: CustomColors.customSwatchColor,
+                      backgroundColor: CustomColors.customSwatchColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(18),
                       ),
                     ),
                     onPressed: () {},
-                    child: Text(
+                    child: const Text(
                       "Concluir pedido",
                       style: TextStyle(
                         fontSize: 18,
