@@ -31,7 +31,7 @@ class SignInScreen extends StatelessWidget {
                       ),
                       children: [
                         const TextSpan(
-                          text: 'Geen',
+                          text: 'Green',
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
