@@ -4,7 +4,7 @@ import 'package:quitanda/src/pages/auth/sing_in_up_screen.dart';
 import 'package:quitanda/src/pages/base/base_screnn.dart';
 import 'package:quitanda/src/config/custom_colors.dart';
 
-import 'components/custom_text_fild.dart';
+import '../comuns_widgets/custom_text_fild.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});

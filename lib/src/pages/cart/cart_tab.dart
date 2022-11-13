@@ -1,13 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:quitanda/src/config/custom_colors.dart';
+import 'package:quitanda/src/pages/cart/cart_item_model.dart';
 import 'package:quitanda/src/pages/cart/componets/cart_tile.dart';
 import 'package:quitanda/src/services/utils_services.dart';
 import 'package:quitanda/src/config/app_data.dart' as appData;
 
-class CartTab extends StatelessWidget {
-  CartTab({super.key});
+class CartTab extends StatefulWidget {
+  const CartTab({super.key});
 
+  @override
+  State<CartTab> createState() => _CartTabState();
+}
+
+class _CartTabState extends State<CartTab> {
   final UtilServices utilServices = UtilServices();
+
+  void removeItemFromCart(CartItemModel cartItem) {
+    setState(() {
+      appData.cartItem.remove(cartItem);
+    });
+  }
+
+  double cartTolalPrice() {
+    double total = 0;
+    for (var item in appData.cartItem) {
+      total += item.totalPrice();
+    }
+
+    return total;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +42,10 @@ class CartTab extends StatelessWidget {
             child: ListView.builder(
               itemCount: appData.cartItem.length,
               itemBuilder: (_, index) {
-                return CartTile(cartItem: appData.cartItem[index]);
+                return CartTile(
+                  cartItem: appData.cartItem[index],
+                  remove: removeItemFromCart,
+                );
               },
             ),
           ),
@@ -49,7 +73,7 @@ class CartTab extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  utilServices.priceToCourence(50.5),
+                  utilServices.priceToCourence(cartTolalPrice()),
                   style: TextStyle(
                     fontSize: 23,
                     color: CustomColors.customSwatchColor,
@@ -65,7 +89,10 @@ class CartTab extends StatelessWidget {
                         borderRadius: BorderRadius.circular(18),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () async {
+                      bool? result = await showOrederConfirmation();
+                      print(result);
+                    },
                     child: const Text(
                       "Concluir pedido",
                       style: TextStyle(
@@ -80,5 +107,38 @@ class CartTab extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<bool?> showOrederConfirmation() {
+    return showDialog<bool>(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            title: const Text("Confirimação"),
+            content: const Text("Deseja realmente concluir o pedido ?"),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(false);
+                },
+                child: const Text("Não"),
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop(true);
+                },
+                child: const Text('Sim'),
+              )
+            ],
+          );
+        });
   }
 }
