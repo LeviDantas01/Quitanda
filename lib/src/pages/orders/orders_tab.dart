@@ -15,7 +15,9 @@ class OrderTab extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         physics: BouncingScrollPhysics(),
         separatorBuilder: (_, index) => SizedBox(height: 10),
-        itemBuilder: (_, index) => OrderTile(order: appData.orders[index]),
+        itemBuilder: (_, index) => OrderTile(
+          order: appData.orders[index],
+        ),
         itemCount: appData.orders.length,
       ),
     );
