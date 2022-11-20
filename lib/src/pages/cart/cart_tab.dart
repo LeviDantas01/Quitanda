@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quitanda/src/config/custom_colors.dart';
 import 'package:quitanda/src/pages/cart/cart_item_model.dart';
 import 'package:quitanda/src/pages/cart/componets/cart_tile.dart';
+import 'package:quitanda/src/pages/comuns_widgets/payment_dialog.dart';
 import 'package:quitanda/src/services/utils_services.dart';
 import 'package:quitanda/src/config/app_data.dart' as appData;
 
@@ -18,6 +19,8 @@ class _CartTabState extends State<CartTab> {
   void removeItemFromCart(CartItemModel cartItem) {
     setState(() {
       appData.cartItem.remove(cartItem);
+      utilServices.showToast(
+          message: '${cartItem.item.itemName} removido(a) do carrinho!');
     });
   }
 
@@ -91,7 +94,21 @@ class _CartTabState extends State<CartTab> {
                     ),
                     onPressed: () async {
                       bool? result = await showOrederConfirmation();
-                      print(result);
+                      if (result ?? false) {
+                        showDialog(
+                          context: context,
+                          builder: (_) {
+                            return PaymantDialog(
+                              order: appData.orders.first,
+                            );
+                          },
+                        );
+                      } else {
+                        utilServices.showToast(
+                          message: 'Pedido NÃO confirmado',
+                          isErro: true,
+                        );
+                      }
                     },
                     child: const Text(
                       "Concluir pedido",

@@ -29,22 +29,42 @@ class OrderStatusWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _StatusDot(
+        const _StatusDot(
           isActive: true,
           titile: 'Pedido Confirmado',
         ),
-        _CustomDivider(),
+        const _CustomDivider(),
         if (currentStatus == 1) ...[
-          _StatusDot(
+          const _StatusDot(
             isActive: true,
             titile: 'Pix extornado',
             backgroudncolor: Colors.orange,
           ),
         ] else if (isOrverdue) ...[
-          _StatusDot(
+          const _StatusDot(
             isActive: true,
             titile: 'Pagamento vencido',
             backgroudncolor: Colors.red,
+          ),
+        ] else ...[
+          _StatusDot(
+            isActive: currentStatus >= 2,
+            titile: 'Pagamento',
+          ),
+          const _CustomDivider(),
+          _StatusDot(
+            isActive: currentStatus >= 3,
+            titile: 'Preparando',
+          ),
+          const _CustomDivider(),
+          _StatusDot(
+            isActive: currentStatus >= 4,
+            titile: 'Envio',
+          ),
+          const _CustomDivider(),
+          _StatusDot(
+            isActive: currentStatus == 5,
+            titile: 'Entregue',
           ),
         ]
       ],
@@ -109,7 +129,7 @@ class _StatusDot extends StatelessWidget {
         Expanded(
           child: Text(
             titile,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 12,
             ),
           ),
