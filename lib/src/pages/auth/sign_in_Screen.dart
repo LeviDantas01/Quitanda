@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:quitanda/src/pages/auth/sing_in_up_screen.dart';
 import 'package:quitanda/src/pages/base/base_screnn.dart';
 import 'package:quitanda/src/config/custom_colors.dart';
+import 'package:quitanda/src/pages/comuns_widgets/app_name_widget.dart';
 
 import '../comuns_widgets/custom_text_fild.dart';
 
@@ -24,27 +25,9 @@ class SignInScreen extends StatelessWidget {
                   child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text.rich(
-                    TextSpan(
-                      style: const TextStyle(
-                        fontSize: 40,
-                      ),
-                      children: [
-                        const TextSpan(
-                          text: 'Green',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        TextSpan(
-                          text: 'Grocer',
-                          style: TextStyle(
-                            color: CustomColors.customContrastColor,
-                          ),
-                        )
-                      ],
-                    ),
+                  const appNameWidget(
+                    greenTileColor: Colors.white,
+                    textSize: 40,
                   ),
                   SizedBox(
                     height: 30,
@@ -103,7 +86,7 @@ class SignInScreen extends StatelessWidget {
                           Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
                               builder: (c) {
-                                return BaseScreen();
+                                return const BaseScreen();
                               },
                             ),
                           );
